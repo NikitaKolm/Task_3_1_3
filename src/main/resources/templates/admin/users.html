@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body style="background-color:#3d4249">
+<h1 style="color:#bdbdbd">User List</h1>
+<font size="5" style="color: #bdbdbd">Create user</font>
+<br/>
+<br/>
+<button style="position: absolute; left: 94.5%; top: 2%;" th:onclick="|window.location.href='/logout'|"
+        class="btn btn-outline-primary">Logout
+</button>
+<form th:action="@{addUser}"
+      th:object="${user}" method="POST">
+    First name:
+    <input type="text" th:field="*{firstName}"/>
+    Username:
+    <input type="text" th:field="*{username}"/>
+    <div style="color: darkred" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>
+    <br/>
+    Last name:
+    <input type="text" th:field="*{lastName}"/>
+    Password:
+    <input type="text" th:field="*{password}"/>
+    <div style="color: darkred" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name error</div>
+    <br/>
+    Email:
+    <input type="text" th:field="*{email}"/>
+    <div style="color: darkred" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name error</div>
+    <br/>
+    <br/>
+    <ul>
+        <li th:each="role : ${allRoles}">
+            <div class="ui checkbox">
+                <input type="checkbox" th:field="*{roles}" th:value="${role.id}">
+                <label th:text=${role.getName()}></label>
+            </div>
+        </li>
+    </ul>
+
+    <input type="submit" value="Create" class="btn btn-outline-primary"/>
+</form>
+<br/>
+<br/>
+<div>
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Roles</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="us, iterStat : ${userList}">
+            <td th:text="${us.getId()}"></td>
+            <td th:text="${us.getFirstName()}"></td>
+            <td th:text="${us.getLastName()}"></td>
+            <td th:text="${us.getEmail()}"></td>
+            <td th:text="${us.getUsername()}"></td>
+            <td th:text="${us.getPassword()}"></td>
+            <td th:text="${us.getRoles()}"></td>
+            <td>
+                <button th:action="@{updateUser}" th:onclick="|window.location.href='updateUser/${us.getId()}'|"
+                        class="btn btn-outline-primary">Edit
+                </button>
+            </td>
+            <td>
+                <form class="mb-2" th:action="@{deleteUser/{id}(id=${us.getId()})}" th:method="DELETE">
+                    <input type="hidden" name="id">
+                    <button class="btn btn-outline-danger bi-trash3" type="submit">Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
