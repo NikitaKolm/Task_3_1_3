@@ -62,11 +62,10 @@ public class AdminController {
         return "/admin/updateUser";
     }
 
-    @PatchMapping(value = "admin/updateUser/{id}")
-    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                             @PathVariable(value = "id") Long id) {
+    @PutMapping(value = "/updateUser")
+    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         Optional<User> userWithSameUsername = userService.findByUsername(user.getUsername());
-        User updatingUser = userService.getUserById(id);
+        User updatingUser = userService.getUserById(user.getId());
         if (bindingResult.hasErrors()) {
             if (userWithSameUsername.isPresent() && !user.getUsername().equals(updatingUser.getUsername())) {
                 bindingResult.rejectValue("username", "error.username", "Username is already taken");
@@ -80,4 +79,23 @@ public class AdminController {
         userService.updateUser(user);
         return "redirect:/admin/users";
     }
+
+//    @PutMapping(value = "admin/updateUser/{id}")
+//    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+//                             @PathVariable(value = "id") Long id) {
+//        Optional<User> userWithSameUsername = userService.findByUsername(user.getUsername());
+//        User updatingUser = userService.getUserById(id);
+//        if (bindingResult.hasErrors()) {
+//            if (userWithSameUsername.isPresent() && !user.getUsername().equals(updatingUser.getUsername())) {
+//                bindingResult.rejectValue("username", "error.username", "Username is already taken");
+//            }
+//            return "/admin/updateUser";
+//        }
+//        if (userWithSameUsername.isPresent() && !user.getUsername().equals(updatingUser.getUsername())) {
+//            bindingResult.rejectValue("username", "error.username", "Username is already taken");
+//            return "/admin/updateUser";
+//        }
+//        userService.updateUser(user);
+//        return "redirect:/admin/users";
+//    }
 }

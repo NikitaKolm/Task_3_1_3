@@ -7,8 +7,8 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body style="background-color:#3d4249">
-<form id="updateForm" th:action="@{/admin/updateUser/{id}(id=${user.getId()})}"
-      th:object="${user}" th:method="PATCH">
+<form id="updateForm" th:action="@{/updateUser}"
+      th:object="${user}" th:method="PUT">
     <input type="hidden" name="id" th:value="${user.getId()}">
     First name:
     <input type="text" th:value="${user.getFirstName()}" th:field="*{firstName}"/>
