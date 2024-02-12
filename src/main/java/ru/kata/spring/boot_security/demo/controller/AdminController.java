@@ -35,12 +35,6 @@ public class AdminController {
     @PostMapping(value = "admin/addUser")
     public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         Optional<User> userWithSameUsername = userService.findByUsername(user.getUsername());
-        if (bindingResult.hasErrors()) {
-            if (userWithSameUsername.isPresent()) {
-                bindingResult.rejectValue("username", "error.username", "Username is already taken");
-            }
-            return "/admin/users";
-        }
         if (userWithSameUsername.isPresent()) {
             bindingResult.rejectValue("username", "error.username", "Username is already taken");
             return "/admin/users";
@@ -66,12 +60,6 @@ public class AdminController {
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         Optional<User> userWithSameUsername = userService.findByUsername(user.getUsername());
         User updatingUser = userService.getUserById(user.getId());
-        if (bindingResult.hasErrors()) {
-            if (userWithSameUsername.isPresent() && !user.getUsername().equals(updatingUser.getUsername())) {
-                bindingResult.rejectValue("username", "error.username", "Username is already taken");
-            }
-            return "/admin/updateUser";
-        }
         if (userWithSameUsername.isPresent() && !user.getUsername().equals(updatingUser.getUsername())) {
             bindingResult.rejectValue("username", "error.username", "Username is already taken");
             return "/admin/updateUser";

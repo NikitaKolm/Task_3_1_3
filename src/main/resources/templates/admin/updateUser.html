@@ -17,16 +17,14 @@
     <input type="text" th:value="${user.getLastName()}" th:field="*{lastName}"/>
     </br>
     Email:
-    <input type="text" th:value="${user.getEmail()}" th:field="*{email}"/>
-    <div style="color: darkred" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+    <input type="email" th:value="${user.getEmail()}" th:field="*{email}" required/>
     </br>
     Username:
-    <input type="text" th:value="${user.getUsername()}" th:field="*{username}"/>
+    <input type="text" th:value="${user.getUsername()}" th:field="*{username}" required/>
     <div style="color: darkred" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
     </br>
     Password:
-    <input type="text" th:value="${user.getPassword()}" th:field="*{password}"/>
-    <div style="color: darkred" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+    <input type="password" th:field="*{password}"/>
     </br>
     </br>
     <ul>

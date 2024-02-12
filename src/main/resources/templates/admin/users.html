@@ -19,18 +19,16 @@
     First name:
     <input type="text" th:field="*{firstName}"/>
     Username:
-    <input type="text" th:field="*{username}"/>
-    <div style="color: darkred" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>
+    <input type="text" th:field="*{username}" required/>
+    <div style="color: darkred" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
     <br/>
     Last name:
     <input type="text" th:field="*{lastName}"/>
     Password:
-    <input type="text" th:field="*{password}"/>
-    <div style="color: darkred" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name error</div>
+    <input type="text" th:field="*{password}" required/>
     <br/>
     Email:
-    <input type="text" th:field="*{email}"/>
-    <div style="color: darkred" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name error</div>
+    <input type="email" th:field="*{email}" required/>
     <br/>
     <br/>
     <ul>

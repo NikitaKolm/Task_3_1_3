@@ -1,8 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,16 +22,12 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotEmpty(message = "Email should not be empty")
-    @Email(message = "Email must be valid")
     @Column(name = "email")
     private String email;
 
-    @NotEmpty(message = "Username should not be empty")
     @Column(name = "username")
     private String username;
 
-    @NotEmpty(message = "Password should not be empty")
     @Column(name = "password")
     private String password;
 
